@@ -147,7 +147,6 @@ void GameServer::forward_message_to_opponent(int player_id, const std::string &m
             std::lock_guard<std::mutex> lock(mtx);
 
             players[player_id].set_is_allowed_to_play(false);
-
             if (players.find(opponent_player_id) != players.end())
             {
                 players[opponent_player_id].set_is_allowed_to_play(true);
@@ -243,5 +242,10 @@ void GameServer::start_new_session(int player_1_id, int player_2_id)
 void GameServer::on_player_left(int player_id)
 {
     re_match_player(player_id);
-    players.erase(player_id);
+
+    {
+        std::lock_guard<std::mutex> lock(mtx);
+        players.erase(player_id);
+    }
+
 }
