@@ -1,4 +1,5 @@
 # TicTacToe
+```
 TicTacToe_Project/
 │── CMakeLists.txt  # Root CMake file (manages subprojects)
 │
@@ -38,3 +39,4 @@ TicTacToe_Project/
 └── executables      # Final built executables
     ├── Tic_Tac_Toe_server
     ├── Tic_Tac_Toe_client
+```
