@@ -93,10 +93,6 @@ std::string Socket::get_peer_name()
 
 bool Socket::send_data(const std::string &data)
 {
-//    if (!is_valid) return false;
-//    ssize_t bytes_sent = send(sockfd, data.c_str(), data.length(), 0);
-//    return bytes_sent != -1;
-
     if (!is_valid) return false;
 
     uint32_t size = htonl(data.size()); // Convert to network byte order
@@ -121,11 +117,6 @@ bool Socket::ready_read()
 std::string Socket::read_data()
 {
     if (!is_valid_socket()) return "";
-
-//    char buffer[1024] = {0};
-//    int bytes_received = recv(sockfd, buffer, sizeof(buffer), 0);
-//    if (bytes_received <= 0) return "";
-//    return std::string(buffer, bytes_received);
 
     uint32_t size;
     ssize_t bytes_received = recv(sockfd, &size, sizeof(size), 0);
