@@ -93,8 +93,17 @@ std::string Socket::get_peer_name()
 
 bool Socket::send_data(const std::string &data)
 {
+//    if (!is_valid) return false;
+//    ssize_t bytes_sent = send(sockfd, data.c_str(), data.length(), 0);
+//    return bytes_sent != -1;
+
     if (!is_valid) return false;
-    ssize_t bytes_sent = send(sockfd, data.c_str(), data.length(), 0);
+
+    uint32_t size = htonl(data.size()); // Convert to network byte order
+    ssize_t bytes_sent = send(sockfd, &size, sizeof(size), 0);
+    if (bytes_sent == -1) return false;
+
+    bytes_sent = send(sockfd, data.c_str(), data.length(), 0);
     return bytes_sent != -1;
 }
 
@@ -113,10 +122,27 @@ std::string Socket::read_data()
 {
     if (!is_valid_socket()) return "";
 
-    char buffer[1024] = {0};
-    int bytes_received = recv(sockfd, buffer, sizeof(buffer), 0);
+//    char buffer[1024] = {0};
+//    int bytes_received = recv(sockfd, buffer, sizeof(buffer), 0);
+//    if (bytes_received <= 0) return "";
+//    return std::string(buffer, bytes_received);
+
+    uint32_t size;
+    ssize_t bytes_received = recv(sockfd, &size, sizeof(size), 0);
+
+    std::string data;
+
     if (bytes_received <= 0) return "";
-    return std::string(buffer, bytes_received);
+
+    size = ntohl(size); // Convert from network byte order
+
+    char buffer[size]; // Dynamic allocation (consider heap allocation for safety)
+    bytes_received = recv(sockfd, buffer, size, 0);
+
+    if (bytes_received <= 0) return "";
+
+    data.assign(buffer, bytes_received);
+    return data;
 }
 
 Socket::~Socket()
