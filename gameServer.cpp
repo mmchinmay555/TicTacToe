@@ -41,7 +41,7 @@ void GameServer::send_message_to_player(int player_id, const std::string &messag
 {
     if (players.find(player_id) != players.end())
     {
-        std::cout << "Msg sent to " << player_id << ", msg: " << message << std::endl;
+        // std::cout << "Msg sent to " << player_id << ", msg: " << message << std::endl;
         players[player_id].send_data(message);
     }
     else
@@ -87,9 +87,6 @@ void GameServer::start_communication()
     {
         std::this_thread::sleep_for(std::chrono::milliseconds(250));
 
-        // Locking to ensure thread-safe access to players
-        std::lock_guard<std::mutex> lock(mtx);
-
         for (auto& player : players)
         {
             if (player.second.ready_read())
@@ -103,7 +100,7 @@ void GameServer::start_communication()
                     break;
                 }
 
-                // forward_message_to_opponent(player.first, msg_from_client);
+                forward_message_to_opponent(player.first, msg_from_client);
             }
         }
     }
@@ -146,13 +143,19 @@ void GameServer::forward_message_to_opponent(int player_id, const std::string &m
             send_message_to_player(opponent_player_id, msg);
         }
 
-//        {
-//            players[player_id].set_is_allowed_to_play(false);
-//            players[players[player_id].get_opponent_id()].set_is_allowed_to_play(true);
-//        }
+        {
+            std::lock_guard<std::mutex> lock(mtx);
+
+            players[player_id].set_is_allowed_to_play(false);
+
+            if (players.find(opponent_player_id) != players.end())
+            {
+                players[opponent_player_id].set_is_allowed_to_play(true);
+            }
+        }
 
         // Notify allowed player to play
-//        send_message_to_player(players[player_id].get_opponent_id(), "Enter msg: ");
+        send_message_to_player(players[player_id].get_opponent_id(), "Enter msg: ");
     }
 }
 
@@ -180,41 +183,45 @@ void GameServer::match_new_player(int player_id)
         waiting_player_id = -1;
     }
 
-//    if (opponent_id != -1)
-//    {
-//        start_new_session(player_id, opponent_id);
-//    }
+    if (players[player_id].get_opponent_id() != -1)
+    {
+        start_new_session(player_id, players[player_id].get_opponent_id());
+    }
 }
 
 void GameServer::re_match_player(int player_left_id)
 {
-    Player player;
-    player = std::move(players[player_left_id]);
+    int opponent_id = players[player_left_id].get_opponent_id();
 
-    int opponent_id = player.get_opponent_id();
+    // Waiting player left, do nothing
+    if (waiting_player_id == player_left_id)
+    {
+        waiting_player_id = -1;
+        return;
+    }
 
+    // No waiting_player, make this player's opponent as waiting player
     if (waiting_player_id == -1)
     {
-        // No waiting player, make this players opponent as waiting player
         players[opponent_id].set_opponent_id(-1);
         waiting_player_id = opponent_id;
+        return;
     }
-    else
+
     {
-        if (waiting_player_id != player.get_id())
-        {
-            // Already a player is waiting, match them
-            players[opponent_id].set_opponent_id(waiting_player_id);
-            players[waiting_player_id].set_opponent_id(opponent_id);
-        }
-
-        waiting_player_id = -1;
+        std::lock_guard<std::mutex> lock(mtx);
+        // Already a player is waiting, match them
+        players[opponent_id].set_opponent_id(waiting_player_id);
+        players[waiting_player_id].set_opponent_id(opponent_id);
     }
 
-//    if (players[opponent_id].get_opponent_id() != -1)
-//    {
-//        start_new_session(opponent_id, players[opponent_id].get_opponent_id());
-//    }
+
+    waiting_player_id = -1;
+
+    if (players[opponent_id].get_opponent_id() != -1)
+    {
+        start_new_session(opponent_id, players[opponent_id].get_opponent_id());
+    }
 }
 
 void GameServer::start_new_session(int player_1_id, int player_2_id)
