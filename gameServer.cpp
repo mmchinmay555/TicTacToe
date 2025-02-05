@@ -129,7 +129,7 @@ void GameServer::add_player_to_map(Player &player)
     send_message_to_player(player_id, msg);
 
     // Match with an opponent
-    match_new_player(player_id);
+    match_player(player_id);
 }
 
 void GameServer::forward_message_to_opponent(int player_id, const std::string &msg)
@@ -164,7 +164,7 @@ void GameServer::handle_player_disconnection(int disconnected_player_id)
     on_player_left(disconnected_player_id);
 }
 
-void GameServer::match_new_player(int player_id)
+void GameServer::match_player(int player_id)
 {
     if (waiting_player_id == -1)
     {
@@ -188,41 +188,6 @@ void GameServer::match_new_player(int player_id)
     }
 }
 
-void GameServer::re_match_player(int player_left_id)
-{
-    int opponent_id = players[player_left_id].get_opponent_id();
-
-    // Waiting player left, do nothing
-    if (waiting_player_id == player_left_id)
-    {
-        waiting_player_id = -1;
-        return;
-    }
-
-    // No waiting_player, make this player's opponent as waiting player
-    if (waiting_player_id == -1)
-    {
-        players[opponent_id].set_opponent_id(-1);
-        waiting_player_id = opponent_id;
-        return;
-    }
-
-    {
-        std::lock_guard<std::mutex> lock(mtx);
-        // Already a player is waiting, match them
-        players[opponent_id].set_opponent_id(waiting_player_id);
-        players[waiting_player_id].set_opponent_id(opponent_id);
-    }
-
-
-    waiting_player_id = -1;
-
-    if (players[opponent_id].get_opponent_id() != -1)
-    {
-        start_new_session(opponent_id, players[opponent_id].get_opponent_id());
-    }
-}
-
 void GameServer::start_new_session(int player_1_id, int player_2_id)
 {
     std::cout << "Session start for: " << " player_" << player_1_id << " - " << " player_" << player_2_id << std::endl;
@@ -231,7 +196,6 @@ void GameServer::start_new_session(int player_1_id, int player_2_id)
         std::lock_guard<std::mutex> lock(mtx);
 
         // First turn - player_1_id, Second turn - player_2_id;
-
         players[player_1_id].set_is_allowed_to_play(true);
         players[player_2_id].set_is_allowed_to_play(false);
     }
@@ -241,11 +205,25 @@ void GameServer::start_new_session(int player_1_id, int player_2_id)
 
 void GameServer::on_player_left(int player_id)
 {
-    re_match_player(player_id);
+    // Waiting player left, do nothing
+    if (waiting_player_id == player_id)
+    {
+        waiting_player_id = -1;
+    }
+    else
+    {
+        int opponent_id = players[player_id].get_opponent_id();
+
+        {
+            std::lock_guard<std::mutex> lock(mtx);
+            players[opponent_id].set_opponent_id(-1);
+        }
+
+        match_player(opponent_id);
+    }
 
     {
         std::lock_guard<std::mutex> lock(mtx);
         players.erase(player_id);
     }
-
 }

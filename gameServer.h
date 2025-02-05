@@ -2,6 +2,7 @@
 #define GAMESERVER_H
 
 #include <tcpServer.h>
+#include "player.h"
 
 #include <iostream>
 #include <vector>
@@ -10,7 +11,7 @@
 #include <atomic>
 #include <unordered_map>
 #include <chrono>
-#include "player.h"
+
 
 class GameServer
 {
@@ -34,11 +35,8 @@ private:
     /* Server now ready to accept new Players */
     void start_lobby();
 
-    /* Called when new player joins the lobby */
-    void match_new_player(int player_id);
-
-    /* Called when existing player leaves */
-    void re_match_player(int player_left_id);
+    /* Called when new player joins or leaves the lobby */
+    void match_player(int player_id);
 
     /* Start new session for newly matched player */
     void start_new_session(int player_1_id, int player_2_id);
