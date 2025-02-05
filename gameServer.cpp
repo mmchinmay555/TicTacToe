@@ -192,6 +192,11 @@ void GameServer::start_new_session(int player_1_id, int player_2_id)
 {
     std::cout << "Session start for: " << " player_" << player_1_id << " - " << " player_" << player_2_id << std::endl;
 
+    std::string msg = "New Game begins!";
+
+    send_message_to_player(player_1_id, msg);
+    send_message_to_player(player_2_id, msg);
+
     {
         std::lock_guard<std::mutex> lock(mtx);
 
@@ -213,6 +218,9 @@ void GameServer::on_player_left(int player_id)
     else
     {
         int opponent_id = players[player_id].get_opponent_id();
+
+        std::string msg = "Your opponent left, please wait till another player joins..";
+        send_message_to_player(opponent_id, msg);
 
         {
             std::lock_guard<std::mutex> lock(mtx);
