@@ -77,6 +77,17 @@ private:
 
     /* GameServer running state */
     bool is_game_server_running;
+
+protected:
+    virtual void game_started(int player1_id, int player2_id) = 0;
+    virtual void game_ended(int player1_id, int player2_id) = 0;
+
+    // -1 : Match in progress
+    // 0  : No winner
+    // 1  : player_id WON, opponent WON
+    // 2  : player_id LOOSE, opponent WON
+    virtual int update_move_and_get_reply(int player_id, const std::string &msg, std::string& reply) = 0;
+    virtual void handle_player_move(int player_id, const std::string &msg) = 0;
 };
 
 #endif // GAMESERVER_H

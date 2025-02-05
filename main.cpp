@@ -1,12 +1,12 @@
 #include <iostream>
 
 using namespace std;
-#include "gameServer.h"
+#include "ttt_server.h"
 
 int main()
 {
-    GameServer server(8080);
-    server.start_server();
+    TTT_Server* server = TTT_Server::get_instance(8080);
+    server->start_server();
 
     return 0;
 }

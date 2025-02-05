@@ -140,7 +140,34 @@ void GameServer::forward_message_to_opponent(int player_id, const std::string &m
 
         if (opponent_player_id != -1)
         {
-            send_message_to_player(opponent_player_id, msg);
+            std::string reply;
+            int status = update_move_and_get_reply(player_id, msg, reply);
+
+            send_message_to_player(player_id, "Your > " + reply);
+            send_message_to_player(opponent_player_id, "player > " + reply);
+
+            if (status == 0)
+            {
+                // 0  : No winner
+                send_message_to_player(player_id, "GAME ENDED, NO WINNER :|");
+                send_message_to_player(opponent_player_id, "GAME ENDED, NO WINNER :|");
+            }
+            else if (status == 1)
+            {
+                // 1  : player_id WON, opponent LOOSE
+                send_message_to_player(player_id, "GAME ENDED, YOU WON!");
+                send_message_to_player(opponent_player_id, "GAME ENDED, YOU LOOSE :(");
+            }
+            else if (status == 2)
+            {
+                // 2  : player_id LOOSE, opponent WON
+                send_message_to_player(player_id, "GAME ENDED, YOU LOOSE :(");
+                send_message_to_player(opponent_player_id, "GAME ENDED, YOU WON!");
+            }
+            else if (status == -1)
+            {
+                // -1 : Match in progress, no need to do anything
+            }
         }
 
         {
@@ -205,6 +232,7 @@ void GameServer::start_new_session(int player_1_id, int player_2_id)
         players[player_2_id].set_is_allowed_to_play(false);
     }
 
+    game_started(player_1_id, player_2_id);
     send_message_to_player(player_1_id, "Enter msg: ");
 }
 
@@ -218,6 +246,7 @@ void GameServer::on_player_left(int player_id)
     else
     {
         int opponent_id = players[player_id].get_opponent_id();
+        game_ended(player_id, opponent_id);
 
         std::string msg = "Your opponent left, please wait till another player joins..";
         send_message_to_player(opponent_id, msg);
