@@ -16,6 +16,7 @@ add_executable(
     GameLobby main.cpp
     player.h player.cpp
     gameServer.h gameServer.cpp
+    ttt_server.h ttt_server.cpp
 )
 
 # Link GameLobby with TcpNetworking
