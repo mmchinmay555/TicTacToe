@@ -21,5 +21,9 @@ private:
     void exit_game();
 
     void start_playing();
+
     void reciever_job();
+    void sender_job();
+
+    bool validate_input(const std::string& input);
 };

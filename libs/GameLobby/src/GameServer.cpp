@@ -141,6 +141,14 @@ void GameServer::forward_message_to_opponent(int player_id, const std::string &m
         if (opponent_player_id != -1)
         {
             std::string reply;
+
+             // Asking to validate;
+            if (!validate_input(player_id, msg))
+            {
+                send_message_to_player(player_id, "Invalid move!\nEnter msg: ");
+                return;
+            }
+
             int status = update_move_and_get_reply(player_id, msg, reply);
 
             send_message_to_player(player_id, "Your > " + reply);

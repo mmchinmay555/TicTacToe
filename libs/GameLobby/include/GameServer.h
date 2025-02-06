@@ -88,6 +88,8 @@ protected:
     // 2  : player_id LOOSE, opponent WON
     virtual int update_move_and_get_reply(int player_id, const std::string &msg, std::string& reply) = 0;
     virtual void handle_player_move(int player_id, const std::string &msg) = 0;
+
+    virtual bool validate_input(int player_id, const std::string &msg) = 0;
 };
 
 #endif // GAMESERVER_H

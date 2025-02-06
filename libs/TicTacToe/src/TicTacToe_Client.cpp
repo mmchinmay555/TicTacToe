@@ -39,7 +39,7 @@ void TTT_Player::exit_game()
     close_connection();
     is_game_running = false;
 
-    std::cout << "Client disconnected." << std::endl;
+    std::cout << "bye..!" << std::endl;
 }
 
 void TTT_Player::reciever_job()
@@ -57,14 +57,10 @@ void TTT_Player::reciever_job()
     }
 }
 
-void TTT_Player::start_playing()
+void TTT_Player::sender_job()
 {
-    std::thread recv_thread([this]()
+    while (is_game_running)
     {
-        reciever_job();
-    });
-
-    while (is_game_running) {
         std::string msg;
         std::getline(std::cin, msg);
 
@@ -78,6 +74,17 @@ void TTT_Player::start_playing()
             }
         }
     }
+}
+
+void TTT_Player::start_playing()
+{
+    std::thread recv_thread([this]()
+    {
+        reciever_job();
+    });
+
+    // Take Input for Play from User
+    sender_job();
 
     exit_game();
     recv_thread.join();

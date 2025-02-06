@@ -106,6 +106,18 @@ int TTT_Server::update_move_and_get_reply(int player_id, const std::string &msg,
     return -1;
 }
 
+bool TTT_Server::validate_input(int player_id, const std::string &msg)
+{
+    if (!(msg.size() == 1 && msg[0] >= '1' && msg[0] <= '9')) return false;
+
+    int index_to_write = std::stoi(msg);
+    std::pair<int, int> player_pair = player_to_pair_map[player_id];
+
+    if (players_to_session_map[player_pair][index_to_write] != 0) return false;
+
+    return true;
+}
+
 std::pair<int, int> TTT_Server::create_pair(int player1_id, int player2_id)
 {
     std::pair<int, int> players_pair;

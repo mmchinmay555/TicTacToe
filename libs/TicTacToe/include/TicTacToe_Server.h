@@ -33,6 +33,8 @@ protected:
     virtual void handle_player_move(int player_id, const std::string &msg);
     virtual int update_move_and_get_reply(int player_id, const std::string &msg, std::string &reply);
 
+    virtual bool validate_input(int player_id, const std::string &msg);
+
 private:
     std::pair<int, int> create_pair(int player1_id, int player2_id);
 
