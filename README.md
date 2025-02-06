@@ -1,5 +1,44 @@
-# TicTacToe
+# TicTacToe Multiplayer Game
 
+This project is a multiplayer TicTacToe game built with a **modular C++** architecture. It is divided into three main subprojects:
+
+- **TcpNetworking**: A lightweight library handling TCP server-client communication.
+- **GameLobby**: Manages matchmaking and player interactions in a multiplayer lobby.
+- **TicTacToe**: The core game, built on top of GameLobby, where players can compete in turn-based matches.
+
+## Structure of the project
+
+```
+TicTacToe_Project/
+│── CMakeLists.txt
+│
+├── scripts/                # shell scripts to start and join the game after building
+│   ├── start_game.sh
+│   ├── join_game.sh
+│
+├── libs/
+│   ├── TcpNetworking/
+│   │   ├── include/
+│   │   ├── src/
+│   │   ├── CMakeLists.txt
+│   │
+│   ├── GameLobby/
+│   │   ├── include/
+│   │   ├── src/
+│   │   ├── CMakeLists.txt
+│   │
+│   ├── TicTacToe/
+│   │   ├── include/
+│   │   ├── src/
+│   │   ├── CMakeLists.txt
+│
+├── app/
+│   ├── TicTacToe_Game.cpp
+│   ├── TicTacToe_Player.cpp
+│   ├── CMakeLists.txt
+
+
+```
 
 ## Features
 
@@ -60,36 +99,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 Built with ❤️ by [Your Name](https://github.com/yourusername)
 
-## Structure of the project
 
-```
-TicTacToe_Project/
-│── CMakeLists.txt
-│
-├── scripts/                # shell scripts to start and join the game after building
-│   ├── start_game.sh
-│   ├── join_game.sh
-│
-├── libs/
-│   ├── TcpNetworking/
-│   │   ├── include/
-│   │   ├── src/
-│   │   ├── CMakeLists.txt
-│   │
-│   ├── GameLobby/
-│   │   ├── include/
-│   │   ├── src/
-│   │   ├── CMakeLists.txt
-│   │
-│   ├── TicTacToe/
-│   │   ├── include/
-│   │   ├── src/
-│   │   ├── CMakeLists.txt
-│
-├── app/
-│   ├── TicTacToe_Game.cpp
-│   ├── TicTacToe_Player.cpp
-│   ├── CMakeLists.txt
-
-
-```
