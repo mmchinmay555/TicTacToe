@@ -46,7 +46,7 @@ TicTacToe_Project/
 
 1. Clone the repository:
     ```bash
-    git clone https://github.com/mmchinmay555/TicTacToe.git
+    git clone [[https://github.com/mmchinmay555/TicTacToe.git]()](https://github.com/mmchinmay555/TicTacToe.git)
     cd TicTacToe
     ```
 
