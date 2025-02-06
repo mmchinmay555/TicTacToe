@@ -7,6 +7,7 @@ This is a multiplayer game built using C++.
 ```
 TicTacToe_Project/
 │── CMakeLists.txt
+│── build.sh
 │
 ├── scripts/                # shell scripts to start and join the game after building
 │   ├── start_game.sh
