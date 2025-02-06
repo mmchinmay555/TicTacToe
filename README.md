@@ -1,8 +1,8 @@
-#🎮 TicTacToe Multiplayer Game
+# TicTacToe Multiplayer Game 🎮
 
 This is a multiplayer game developed in C++, where the server matches players with others online, allowing them to join and start playing together.
 
-## Structure of the project
+## Structure of the project 🏗️ 
 
 ```
 TicTacToe_Project/
@@ -37,13 +37,13 @@ TicTacToe_Project/
 
 ```
 
-## Features
+## Features ✨
 
 - **Modular Components**: Each subproject is designed to be reusable across different projects.
 - **Game Lobby**: Matchmaking functionality with turn-based gameplay.
 - **Easy Setup**: Simple to integrate into your own multiplayer games.
 
-## Installation
+## Installation 🛠️
 
 1. Clone the repository:
     ```bash
@@ -58,7 +58,7 @@ TicTacToe_Project/
     ./build.sh
     ```
 
-## Usage
+## Usage 🚀
 
 1. **Run the Game Server**:
     To start the game server, use:
@@ -76,17 +76,17 @@ TicTacToe_Project/
 
     Players will be matched through the **GameLobby**.
 
-## Dependencies
+## Dependencies 🔧
 
 - **C++17** or later.
 - **CMake** for building the project.
 - No external libraries are required.
 
-## Contributing
+## Contributing 🤝
 
 Feel free to fork this project, submit issues, and create pull requests. Contributions are always welcome!
 
-## License
+## License 📜
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
