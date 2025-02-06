@@ -3,7 +3,7 @@
 TicTacToe_Project/
 │── CMakeLists.txt
 │
-├── scripts/                # Store your shell scripts here
+├── scripts/                # shell scripts to start and join the game after building
 │   ├── start_game.sh
 │   ├── join_game.sh
 │
