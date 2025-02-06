@@ -1,18 +1,14 @@
-cmake_minimum_required(VERSION 3.10)
-project(TcpNetworking)
+# TcpNetworking/CMakeLists.txt
+set(TCPNETWORKING_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include)
+set(TCPNETWORKING_SRC_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src)
 
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-
-# Add include directory
-include_directories(include)
-
-# Add source files
+# Create a library for TcpNetworking
 add_library(TcpNetworking STATIC
-    src/socket.cpp
-    src/tcpServer.cpp
-    src/tcpClient.cpp
+    ${TCPNETWORKING_SRC_DIR}/TcpServer.cpp
+    ${TCPNETWORKING_SRC_DIR}/TcpClient.cpp
+    ${TCPNETWORKING_SRC_DIR}/Socket.cpp
 )
 
-# Example programs
-add_subdirectory(examples)
+# Include directories
+target_include_directories(TcpNetworking PUBLIC ${TCPNETWORKING_INCLUDE_DIR})
+

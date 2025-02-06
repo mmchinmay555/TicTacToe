@@ -1,28 +1,12 @@
-cmake_minimum_required(VERSION 3.5)
+cmake_minimum_required(VERSION 3.10)
+project(TicTacToe_Project)
 
-project(GameLobby LANGUAGES CXX)
-
+# Enable C++17 standard (modify if needed)
 set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_STANDARD_REQUIRED True)
 
-add_subdirectory(TcpNetworking/)
-
-# Add TcpNetworking's include directory
-include_directories(${CMAKE_SOURCE_DIR}/TcpNetworking/include)
-# Find the system threading library
-find_package(Threads REQUIRED)
-
-add_executable(
-    GameLobby main.cpp
-    player.h player.cpp
-    gameServer.h gameServer.cpp
-    ttt_server.h ttt_server.cpp
-)
-
-# Link GameLobby with TcpNetworking
-target_link_libraries(GameLobby PRIVATE TcpNetworking Threads::Threads)
-
-install(TARGETS GameLobby
-    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
-
-
+# Add subdirectories for libraries and main application
+add_subdirectory(TcpNetworking)
+add_subdirectory(GameLobby)
+add_subdirectory(TicTacToe)
+add_subdirectory(app)
