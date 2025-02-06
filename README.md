@@ -3,6 +3,10 @@
 TicTacToe_Project/
 │── CMakeLists.txt
 │
+├── scripts/                # Store your shell scripts here
+│   ├── start_game.sh
+│   ├── join_game.sh
+│
 ├── libs/
 │   ├── TcpNetworking/
 │   │   ├── include/
@@ -23,5 +27,6 @@ TicTacToe_Project/
 │   ├── TicTacToe_Game.cpp
 │   ├── TicTacToe_Player.cpp
 │   ├── CMakeLists.txt
+
 
 ```
