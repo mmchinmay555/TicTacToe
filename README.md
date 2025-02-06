@@ -2,6 +2,12 @@
 
 This is a multiplayer game developed in C++, where the server matches players with others online, allowing them to join and start playing together.
 
+## Features ✨
+
+- **Modular Components**: Each subproject is designed to be reusable across different projects.
+- **Game Lobby**: Matchmaking functionality with turn-based gameplay.
+- **Easy Setup**: Simple to integrate into your own multiplayer games.
+
 ## Structure of the project 🏗️ 
 
 ```
@@ -36,12 +42,6 @@ TicTacToe_Project/
 
 
 ```
-
-## Features ✨
-
-- **Modular Components**: Each subproject is designed to be reusable across different projects.
-- **Game Lobby**: Matchmaking functionality with turn-based gameplay.
-- **Easy Setup**: Simple to integrate into your own multiplayer games.
 
 ## Installation 🛠️
 
