@@ -5,8 +5,12 @@ project(TicTacToe_Project)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
-# Add subdirectories for libraries and main application
-add_subdirectory(TcpNetworking)
-add_subdirectory(GameLobby)
-add_subdirectory(TicTacToe)
+# Add subdirectories for libraries 
+add_subdirectory(libs/TcpNetworking)
+add_subdirectory(libs/GameLobby)
+add_subdirectory(libs/TicTacToe)
+
+# Add subdirectory for main app
 add_subdirectory(app)
+
+
