@@ -6,7 +6,7 @@ add_library(TicTacToe
     src/TicTacToe_Client.cpp
 )
 
-target_include_directories(TicTacToe PUBLIC include)
+target_include_directories(TicTacToe PUBLIC include Threads::Threads)
 
 # Link against GameLobby
 target_link_libraries(TicTacToe PUBLIC GameLobby)
