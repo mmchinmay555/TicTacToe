@@ -90,6 +90,7 @@ protected:
     virtual void handle_player_move(int player_id, const std::string &msg) = 0;
 
     virtual bool validate_input(int player_id, const std::string &msg) = 0;
+    virtual void get_current_data(int player_id, std::string &data) = 0;
 };
 
 #endif // GAMESERVER_H

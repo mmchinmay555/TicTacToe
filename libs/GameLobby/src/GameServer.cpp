@@ -154,23 +154,35 @@ void GameServer::forward_message_to_opponent(int player_id, const std::string &m
             send_message_to_player(player_id, "Your > " + reply);
             send_message_to_player(opponent_player_id, "player > " + reply);
 
+            std::string curr_state = "";
+            get_current_data(player_id, curr_state);
+
             if (status == 0)
             {
                 // 0  : No winner
-                send_message_to_player(player_id, "GAME ENDED, NO WINNER :|");
-                send_message_to_player(opponent_player_id, "GAME ENDED, NO WINNER :|");
+                send_message_to_player(player_id, "GAME ENDED, NO WINNER :|\nNEW GAME BEGINS..!");
+                send_message_to_player(opponent_player_id, "GAME ENDED, NO WINNER :|\nNEW GAME BEGINS..!");
+
+                send_message_to_player(player_id, curr_state);
+                send_message_to_player(opponent_player_id, curr_state);
             }
             else if (status == 1)
             {
                 // 1  : player_id WON, opponent LOOSE
-                send_message_to_player(player_id, "GAME ENDED, YOU WON!");
-                send_message_to_player(opponent_player_id, "GAME ENDED, YOU LOOSE :(");
+                send_message_to_player(player_id, "GAME ENDED, YOU WON!\nNEW GAME BEGINS..!");
+                send_message_to_player(opponent_player_id, "GAME ENDED, YOU LOOSE :(\nNEW GAME BEGINS..!");
+
+                send_message_to_player(player_id, curr_state);
+                send_message_to_player(opponent_player_id, curr_state);
             }
             else if (status == 2)
             {
                 // 2  : player_id LOOSE, opponent WON
-                send_message_to_player(player_id, "GAME ENDED, YOU LOOSE :(");
-                send_message_to_player(opponent_player_id, "GAME ENDED, YOU WON!");
+                send_message_to_player(player_id, "GAME ENDED, YOU LOOSE :(\nNEW GAME BEGINS..!");
+                send_message_to_player(opponent_player_id, "GAME ENDED, YOU WON!\nNEW GAME BEGINS..!");
+
+                send_message_to_player(player_id, curr_state);
+                send_message_to_player(opponent_player_id, curr_state);
             }
             else if (status == -1)
             {
@@ -241,6 +253,13 @@ void GameServer::start_new_session(int player_1_id, int player_2_id)
     }
 
     game_started(player_1_id, player_2_id);
+
+    std::string curr_state = "";
+    get_current_data(player_1_id, curr_state);
+
+    send_message_to_player(player_1_id, curr_state);
+    send_message_to_player(player_2_id, curr_state);
+
     send_message_to_player(player_1_id, "Enter msg: ");
 }
 
