@@ -1,42 +1,29 @@
 # TicTacToe
 ```
 TicTacToe_Project/
-│── CMakeLists.txt  # Root CMake file (manages subprojects)
+│── CMakeLists.txt  
 │
-├── TcpNetworking/   # Subproject: Handles networking
+├── TcpNetworking/
 │   ├── include/
-│   │   ├── TcpServer.h
-│   │   ├── TcpClient.h
-│   │   ├── Socket.h
 │   ├── src/
-│   │   ├── TcpServer.cpp
-│   │   ├── TcpClient.cpp
-│   │   ├── Socket.cpp
 │   ├── CMakeLists.txt
 │
-├── GameLobby/       # Subproject: Handles matchmaking
+├── GameLobby/
 │   ├── include/
-│   │   ├── GameServer.h   # Uses TcpServer
-│   │   ├── Player.h
+│   │   ├── GameServer.h  # <== This must be found by TicTacToe_Server.h
 │   ├── src/
-│   │   ├── GameServer.cpp
-│   │   ├── Player.cpp
 │   ├── CMakeLists.txt
 │
-├── TicTacToe/       # Main game project
+├── TicTacToe/
 │   ├── include/
-│   │   ├── TicTacToe_Server.h  # Inherits from GameServer
-│   │   ├── TicTacToe_Client.h  # Acts as Player
+│   │   ├── TicTacToe_Server.h  # Uses GameServer.h
+│   │   ├── TicTacToe_Client.h
 │   ├── src/
-│   │   ├── TicTacToe_Server.cpp
-│   │   ├── TicTacToe_Client.cpp
 │   ├── CMakeLists.txt
 │
-├── bin/             # Stores compiled binaries
-│
-├── build/           # Temporary CMake build files
-│
-└── executables      # Final built executables
-    ├── Tic_Tac_Toe_server
-    ├── Tic_Tac_Toe_client
+├── app/
+│   ├── TicTacToe_Game.cpp
+│   ├── TicTacToe_Player.cpp
+│   ├── CMakeLists.txt
+
 ```
