@@ -92,6 +92,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-Built with ❤️ by [Chinmay Rao](https://github.com/mmchinmay555)
+by [Chinmay Rao](https://www.linkedin.com/in/chinmay-rao-mm/)
 
 
