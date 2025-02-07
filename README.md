@@ -72,7 +72,7 @@ TicTacToe_Project/
     ```
 
 2. **Run the Game Client**:
-    To connect a client to the server, use:
+    To connect a client to the server, (muliple clients to be run)use:
     ```bash
      cd build/
     ./join_game
