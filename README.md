@@ -4,7 +4,8 @@ This is a multiplayer game developed in C++, where the server matches players wi
 
 ## Features ✨
 
-- **Modular Components**: Each subproject is designed to be reusable across different projects.
+- **Auto match**: Players are paired automatically whenever a player joins or exits
+- **Server-Client model**: Server is where the game is being hosted and clients (players) can join and play with eachother.
 - **Game Lobby**: Matchmaking functionality with turn-based gameplay.
 - **Easy Setup**: Simple to integrate into your own multiplayer games.
 
