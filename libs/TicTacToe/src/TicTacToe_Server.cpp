@@ -206,7 +206,8 @@ void TTT_Server::get_reply(int player_id, std::string &reply)
         {
             os << "\n";
             if (i < 6)
-            { // Print row separator after first two rows
+            {
+                // Print row separator after first two rows
                 os << "----+---+---+\n";
             }
         }

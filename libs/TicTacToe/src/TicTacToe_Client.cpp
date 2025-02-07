@@ -30,7 +30,7 @@ bool TTT_Player::join_game()
     }
 
     is_game_running = true;
-    std::cout << "Connected to server at " << server_ip << ":" << server_port << std::endl;
+    std::cout << "Connected to server at " << server_ip << ":" << server_port << " (type 'quit' to close)"<< std::endl;
     return true;
 }
 

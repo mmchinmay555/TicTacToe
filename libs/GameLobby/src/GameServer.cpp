@@ -145,14 +145,14 @@ void GameServer::forward_message_to_opponent(int player_id, const std::string &m
              // Asking to validate;
             if (!validate_input(player_id, msg))
             {
-                send_message_to_player(player_id, "Invalid move!\nEnter msg: ");
+                send_message_to_player(player_id, "Invalid move!\nSelect correct box: ");
                 return;
             }
 
             int status = update_move_and_get_reply(player_id, msg, reply);
 
-            send_message_to_player(player_id, "Your > " + reply);
-            send_message_to_player(opponent_player_id, "player > " + reply);
+            send_message_to_player(player_id, "Your move: " + reply);
+            send_message_to_player(opponent_player_id, "Opponent's move: " + reply);
 
             std::string curr_state = "";
             get_current_data(player_id, curr_state);
@@ -201,7 +201,7 @@ void GameServer::forward_message_to_opponent(int player_id, const std::string &m
         }
 
         // Notify allowed player to play
-        send_message_to_player(players[player_id].get_opponent_id(), "Enter msg: ");
+        send_message_to_player(players[player_id].get_opponent_id(), "Select box: ");
     }
 }
 
@@ -260,7 +260,7 @@ void GameServer::start_new_session(int player_1_id, int player_2_id)
     send_message_to_player(player_1_id, curr_state);
     send_message_to_player(player_2_id, curr_state);
 
-    send_message_to_player(player_1_id, "Enter msg: ");
+    send_message_to_player(player_1_id, "Select box: ");
 }
 
 void GameServer::on_player_left(int player_id)
