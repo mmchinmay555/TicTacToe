@@ -190,14 +190,30 @@ void TTT_Server::get_reply(int player_id, std::string &reply)
     std::array<char, 9> board = players_to_session_map[player_pair];
 
     std::ostringstream os;
+    // Print top border
+    os << "+---+---+---+\n";
+
     for (int i = 0; i < 9; i++)
     {
-        os << board[i] << " ";
+        if (i % 3 == 0)
+        {
+            os << "|";
+        }
+
+        os << " " << board[i] << " |";
+
         if ((i + 1) % 3 == 0)
-        {  // After every 3 elements, add a newline
-            os << '\n';
+        {
+            os << "\n";
+            if (i < 6)
+            { // Print row separator after first two rows
+                os << "----+---+---+\n";
+            }
         }
     }
+
+    // Print bottom border
+    os << "+---+---+---+";
 
     reply += os.str();
 }
