@@ -1,6 +1,6 @@
 # TicTacToe Multiplayer Game 🎮
 
-This is a multiplayer game developed in C++, where the server matches players with others online, allowing them to join and start playing together.
+A multiplayer game developed in C++ with auto-matchmaking feature, built using custom libraries for client-server interaction and player session management. Designed for reusability and easy integration.
 
 ## Features ✨
 
