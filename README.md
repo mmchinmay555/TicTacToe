@@ -79,6 +79,10 @@ TicTacToe_Project/
     ```
 
     Players will be matched through the **GameLobby**.
+    
+    Sample on How the game looks..
+    ![image](https://github.com/user-attachments/assets/352fa52e-4ea7-41d2-b084-2f0eccc12034)
+
 
 ## Dependencies 🔧
 
