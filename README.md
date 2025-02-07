@@ -2,12 +2,12 @@
 
 This is a multiplayer game developed in C++, where the server matches players with others online, allowing them to join and start playing together.
 
-## Features ✨
+## Sub modules ✨
 
-- **Auto match**: Players are paired automatically whenever a player joins or exits
-- **Server-Client model**: Server is where the game is being hosted and clients (players) can join and play with eachother.
-- **Game Lobby**: Matchmaking functionality with turn-based gameplay.
+- **TcpNetworking**: A lightweight networking library for TCP communication.
+- **Game Lobby**: Manages matchmaking, player sessions, and turn-based interactions. This along with TcpNetworking/ module can be reused into other projects
 - **Easy Setup**: Simple to integrate into your own multiplayer games.
+
 
 ## Structure of the project 🏗️ 
 
